@@ -1,14 +1,13 @@
-
 const Header = () => {
-  return (
-    <>
-        <header>
-            <nav>
+	return (
+		<>
+			<header>
+				<nav>
+					<span>Logo</span>
+				</nav>
+			</header>
+		</>
+	);
+};
 
-            </nav>
-        </header>
-    </>
-  )
-}
-
-export default Header
+export default Header;
