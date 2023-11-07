@@ -7,4 +7,4 @@ accidentes, etc.
 
 ## Tecnologías
 - [React](https://reactjs.org/)
-- [React Native](https://reactnative.dev/)
+- [React Router](https://reactrouter.com/)
