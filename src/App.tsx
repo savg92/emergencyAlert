@@ -1,6 +1,6 @@
-
 import './App.css'
 import Header from './components/Header'
+import Report from './pages/Report'
 
 const App = () => {
 
@@ -8,6 +8,7 @@ const App = () => {
     <>
       <Header />
       <p className='underline'>Hello world!</p>
+      <Report />
     </>
   )
 }
