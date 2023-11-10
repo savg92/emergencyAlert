@@ -7,7 +7,6 @@ const App = () => {
   return (
     <>
       <Header />
-      <p className='underline'>Hello world!</p>
       <Report />
     </>
   )

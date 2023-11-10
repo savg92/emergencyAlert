@@ -9,7 +9,7 @@ const Header = () => {
 
 	return (
 		<>
-			<header className="flex justify-between items-center p-5 bg-blue-500">
+			<header className="flex justify-between items-center p-5 bg-blue-500 shadow-md rounded">
 				<div className="flex items-center gap-2">
 					<img src="#" alt="Logo image" className="w-10 h-10" />
 					<span className="text-white">Logo</span>
