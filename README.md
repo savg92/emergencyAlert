@@ -6,5 +6,6 @@ temprana de emergencias como focos de incendio, inundaciones, ayuda a la comunid
 accidentes, etc.
 
 ## Tecnologías
-- [React](https://reactjs.org/)
-- [React Router](https://reactrouter.com/)
+- React (https://reactjs.org/)
+- React Router (https://reactrouter.com/)
+- Tailwind CSS (https://tailwindcss.com/)
