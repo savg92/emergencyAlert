@@ -1,84 +1,133 @@
+import { useState } from 'react';
 
 const Report = () => {
-    if (!navigator.geolocation) {
-        console.log("Geolocation is not supported by your browser");
-    } else {
-        console.log("Geolocation is supported by your browser");
-    }
-    
-    
-    function success(position: GeolocationPosition) {
-        const latitude  = position.coords.latitude;
-        const longitude = position.coords.longitude;
-        
-        console.log(`Latitude: ${latitude} °, Longitude: ${longitude} °`);
-    }
+	const [photoUrl, setPhotoUrl] = useState<string | null>(null);
+	const [latitude, setLatitude] = useState<number | null>(null);
+	const [longitude, setLongitude] = useState<number | null>(null);
 
-    function error() {
-        console.log("Unable to retrieve your location");
-    }
+	if (!navigator.geolocation) {
+		console.log('Geolocation is not supported by your browser');
+	} else {
+		console.log('Geolocation is supported by your browser');
+	}
 
-    const handleGetLocation = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        event?.preventDefault();
-        navigator.geolocation.getCurrentPosition(success, error);
-    }
+	const success = (position: GeolocationPosition) => {
+		setLatitude(position.coords.latitude);
+		setLongitude(position.coords.longitude);
+	};
 
-    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                const preview = document.getElementById('preview') as HTMLImageElement;
-                preview.src = reader.result as string;
-                preview.alt = 'Image preview';
-            }
-            reader.readAsDataURL(file);
-        }
-    }
+	function error() {
+		console.log('Unable to retrieve your location');
+	}
+
+	const handleGetLocation = (
+		event: React.MouseEvent<HTMLInputElement, MouseEvent>
+	) => {
+		event.preventDefault();
+		navigator.geolocation.getCurrentPosition(success, error);
+	};
+
+	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		e.preventDefault();
+
+		const reader = new FileReader();
+		const file = e.target.files![0];
+
+		reader.onloadend = () => {
+			setPhotoUrl(URL.createObjectURL(file));
+		};
+
+		reader.readAsDataURL(file);
+	};
+
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		const form = event.target as HTMLFormElement;
+		const formData = new FormData(form);
+		const data = Object.fromEntries(formData.entries());
+		console.log(data);
+	};
 
 	return (
 		<>
-			<h1>Reportar situación</h1>
-			<form action='' className="flex flex-col gap-4">
-                <label htmlFor='type'>
-                    Tipo de situación:    
-                </label>
-                <select name='type' id='type'>
-                    <option value=''>Seleccione una opción</option>
-                    <option value='1'>Incendio</option>
-                    <option value='2'>Inundación</option>
-                    <option value='3'>Accidente</option>
-                    <option value='4'>Robo</option>
-                    <option value='5'>Asalto</option>
-                    <option value='6'>Otro</option>
-                </select>
+			<section className='flex flex-col gap-4 max-w-2xl mx-auto p-4'>
+				<h1>Reportar situación</h1>
+				<form
+					action=''
+					onSubmit={handleSubmit}
+					className='flex flex-col gap-4'
+				>
+					<label htmlFor='type'>Tipo de situación:</label>
+					<select
+						name='type'
+						id='type'
+						required
+						className='text-center'
+					>
+						<option value=''>Seleccione una opción</option>
+						<option value='Incendio'>Incendio</option>
+						<option value='Inundación'>Inundación</option>
+						<option value='Deslave'>Deslave</option>
+						<option value='Derrumbe'>Derrumbe</option>
+						<option value='Choque'>Choque</option>
+						<option value='Otro'>Otro</option>
+					</select>
 
-                <label htmlFor='title'>Título:</label>
-                <input type='text' name='title' id='title' />
-				
-                <label htmlFor='description'>Descripción:</label>
-                <textarea name='description' id='description' cols={30} rows={10}></textarea>
-                
-                <label htmlFor='image'>Image:</label>
-                <img id='preview' src='#' alt='preview' className="w-32 h-32" />
-                <input type='file' name='image' id='image' onChange={handleImageChange} />
-                
-                <label htmlFor='location'>Ubicación:</label>
-                <input type='text' name='location' id='location' />
-                <button 
-                onClick={handleGetLocation}
-                className="bg-blue-500 text-white p-2 rounded shadow-md"
-                >
-                    Obtener ubicación
-                </button>
-                
-                <label htmlFor='date'>Fecha:</label>
-                <input type='date' name='date' id='date' />
-                
-                <label htmlFor='time'>Hora:</label>
-                <input type='time' name='time' id='time' />
+					<label htmlFor='description'>Descripción:</label>
+					<textarea
+						name='description'
+						id='description'
+						cols={30}
+						rows={10}
+					></textarea>
 
-			</form>
+					<label htmlFor='image'>Image:</label>
+					<div className='flex flex-col gap-4 items-center justify-center'>
+						{photoUrl && (
+							<img
+								id='preview'
+								src={photoUrl}
+								alt='preview'
+								className='w-32 h-32'
+							/>
+						)}
+						<input
+							type='file'
+							name='image'
+							id='image'
+							onChange={handleImageChange}
+							accept='image/*, image/heic, image/heif, image/jpeg, image/png'
+							className='text-center pl-20'
+						/>
+					</div>
+
+					<label htmlFor='location'>Ubicación:</label>
+					<div className='flex flex-col gap-4 items-center justify-center'>
+						<input
+							type='button'
+							name='location'
+							id='location'
+							value='Obtener ubicación'
+							onClick={handleGetLocation}
+							className='bg-blue-500 text-white p-2 rounded shadow-md w-fit'
+						/>
+					</div>
+					{latitude && longitude && (
+						<p>
+							Latitud: {latitude}
+							<br />
+							Longitud: {longitude}
+						</p>
+					)}
+
+					<button
+						type='submit'
+						className='bg-blue-500 text-white p-2 rounded shadow-md'
+					>
+						Enviar
+					</button>
+				</form>
+			</section>
 		</>
 	);
 };
