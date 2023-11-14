@@ -82,7 +82,7 @@ const Report = () => {
 						rows={10}
 					></textarea>
 
-					<label htmlFor='image'>Image:</label>
+					<label htmlFor='image'>Imagen:</label>
 					<div className='flex flex-col gap-4 items-center justify-center'>
 						{photoUrl && (
 							<img
