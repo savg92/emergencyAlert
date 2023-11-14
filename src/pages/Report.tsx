@@ -61,8 +61,8 @@ const Report = () => {
 					<select
 						name='type'
 						id='type'
-						required
 						className='text-center'
+						required
 					>
 						<option value=''>Seleccione una opción</option>
 						<option value='Incendio'>Incendio</option>
