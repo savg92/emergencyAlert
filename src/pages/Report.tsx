@@ -70,6 +70,7 @@ const Report = () => {
 						<option value='Deslave'>Deslave</option>
 						<option value='Derrumbe'>Derrumbe</option>
 						<option value='Choque'>Choque</option>
+						<option value='Ayuda a la comunidad'>Ayuda a la comunidad</option>
 						<option value='Otro'>Otro</option>
 					</select>
 
