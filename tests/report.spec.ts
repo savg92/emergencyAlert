@@ -27,6 +27,38 @@ test.describe('Report', () => {
 		expect(submitButton).toBeTruthy();
 	});
 
+	test('updates select fields correctly', async ({ page }) => {
+		await page.selectOption('select[name="type"]', 'Incendio');
+		const typeValue = await page.inputValue('select[name="type"]');
+		expect(typeValue).toBe('Incendio');
+	}
+	);
+	test('updates select fields correctly 2', async ({ page }) => {
+		await page.selectOption('select[name="type"]', 'Inundación');
+		const typeValue = await page.inputValue('select[name="type"]');
+		expect(typeValue).toBe('Inundación');
+	});
+	test('updates select fields correctly 3', async ({ page }) => {
+		await page.selectOption('select[name="type"]', 'Deslave');
+		const typeValue = await page.inputValue('select[name="type"]');
+		expect(typeValue).toBe('Deslave');
+	});
+	test('updates select fields correctly 4', async ({ page }) => {
+		await page.selectOption('select[name="type"]', 'Derrumbe');
+		const typeValue = await page.inputValue('select[name="type"]');
+		expect(typeValue).toBe('Derrumbe');
+	});
+	test('updates select fields correctly 5', async ({ page }) => {
+		await page.selectOption('select[name="type"]', 'Choque');
+		const typeValue = await page.inputValue('select[name="type"]');
+		expect(typeValue).toBe('Choque');
+	});
+	test('updates select fields correctly 6', async ({ page }) => {
+		await page.selectOption('select[name="type"]', 'Otro');
+		const typeValue = await page.inputValue('select[name="type"]');
+		expect(typeValue).toBe('Otro');
+	});
+	
 	test('updates input fields correctly', async ({ page }) => {
 		await page.fill('textarea[name="description"]', 'Test description');
 		const descriptionValue = await page.inputValue(
@@ -39,8 +71,6 @@ test.describe('Report', () => {
 		await page.fill('textarea[name="description"]', 'Test description');
 		await page.selectOption('select[name="type"]', 'Incendio');
 		await page.click('button[type="submit"]');
-
-		// Add your assertions here for what should happen when the form is submitted.
-		// For example, you might check that the form values are sent to the server correctly.
 	});
+
 });
