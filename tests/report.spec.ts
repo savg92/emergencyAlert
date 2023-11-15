@@ -4,6 +4,7 @@ test.describe('Report', () => {
 	test.beforeEach(async ({ page }) => {
 		// Go to the starting url before each test.
 		await page.goto('http://localhost:5173');
+
 	});
 
 	test('renders correctly', async ({ page }) => {
